@@ -1,6 +1,6 @@
 import { InputLabel, InputLabelProps } from "@mui/material";
 
-function AppInputLabel({children, ...props}: InputLabelProps) {
+function AppInputLabel({ children, ...props }: InputLabelProps) {
   return (
     <InputLabel
       sx={{
