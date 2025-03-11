@@ -15,7 +15,7 @@ function AppMultiSelect({ children, label, ...props }: SelectProps) {
             borderRadius: "10px",
             border: "0.2px solid #19486680",
             marginTop: "2px",
-            left: "0 !important",
+            // left: "0 !important",
           },
         },
       }}
