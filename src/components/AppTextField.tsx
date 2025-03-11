@@ -4,10 +4,14 @@ function AppTextFiled(props: TextFieldProps) {
   return (
     <TextField
       variant="outlined"
+      InputLabelProps={{
+        style: {
+          color: props.error ? "#D80027" : "#194866CC",
+          lineHeight: "unset",
+        },
+      }}
       sx={{
         "& .MuiOutlinedInput-root": {
-          border: "0.5px solid #194866CC",
-          borderRadius: "10px",
           padding: 0,
 
           "& fieldset": {
@@ -24,8 +28,13 @@ function AppTextFiled(props: TextFieldProps) {
             color: "#194866",
 
             "&::placeholder": {
-              color: "#194866",
+              color: props.error ? "#D80027" : "#194866",
             },
+          },
+
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: `0.5px solid ${props.error ? "#D80027" : "#194866CC"} !important`,
+            borderRadius: "10px",
           },
         },
       }}

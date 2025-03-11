@@ -8,7 +8,7 @@ function AppInputLabel({ children, ...props }: InputLabelProps) {
         color: "#194866",
 
         "&.MuiInputLabel-shrink": {
-          color: "#194866CC ",
+          color: props.error ? "#D80027" : "#194866CC ",
         },
       }}
       {...props}

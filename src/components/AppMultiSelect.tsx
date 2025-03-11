@@ -22,12 +22,12 @@ function AppMultiSelect({ children, label, ...props }: SelectProps) {
       sx={{
         color: "#194866CC",
         "& .MuiOutlinedInput-notchedOutline": {
-          border: "0.5px solid #194866CC !important",
+          border: `0.5px solid ${props.error ? "#D80027" : "#194866CC"} !important`,
           borderRadius: "10px",
         },
 
         "& .MuiOutlinedInput-notchedOutline legend": {
-          color: "red !important",
+          color: "#D80027 !important",
         },
 
         "& .MuiSelect-select": {

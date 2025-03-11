@@ -4,18 +4,27 @@ import AppTextButton from "../../components/AppTextButton";
 import AppTextFiled from "../../components/AppTextField";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import FormValidation from "../../models/formValidation";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface IUserData {
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 }
 
 function SignIn() {
   const navigate = useNavigate();
+  const users = useSelector((state: RootState) => state.users);
   const [userData, setUserData] = useState<IUserData>({
-    email: "",
-    password: "",
+    email: null,
+    password: null,
   });
+  const [errors, setErrors] = useState<{ [key: string]: string | null }>({
+    email: null,
+    password: null,
+  });
+  const formValidation = new FormValidation(userData, users, "sign-in");
 
   function onUserDataUpdate(key: string, event: any) {
     setUserData({
@@ -24,33 +33,55 @@ function SignIn() {
     });
   }
 
+  function validateForm() {
+    if (formValidation.isFormValid()) {
+      navigate("/");
+    } else {
+      setErrors({
+        ...errors,
+        email: formValidation.emailValidation(),
+        password: formValidation.passwordValidation(),
+      });
+    }
+  }
+
+  function onSubmitClick() {
+    validateForm();
+  }
+
   function onCreateAccountClick() {
     navigate("/sign-up");
   }
 
   return (
-    <div className="container">
-      <div className="inputsContainer">
-        <AppTextFiled
-          fullWidth
-          type="email"
-          placeholder="Email"
-          onChange={(event) => onUserDataUpdate("email", event)}
-          value={userData.email}
-        />
-        <AppTextFiled
-          fullWidth
-          type="password"
-          placeholder="Password"
-          onChange={(event) => onUserDataUpdate("password", event)}
-          value={userData.password}
-        />
-      </div>
-      <div className="buttonsContainer">
-        <AppTextButton onClick={onCreateAccountClick}>
-          Create Account
-        </AppTextButton>
-        <AppContainedButton>Submit</AppContainedButton>
+    <div className="root">
+      <div className="container">
+        <div className="inputsContainer">
+          <AppTextFiled
+            error={errors.email !== null}
+            fullWidth
+            label={errors.email || "Email"}
+            type="email"
+            onChange={(event) => onUserDataUpdate("email", event)}
+            value={userData.email}
+          />
+          <AppTextFiled
+            error={errors.password !== null}
+            fullWidth
+            label={errors.password || "Password"}
+            type="password"
+            onChange={(event) => onUserDataUpdate("password", event)}
+            value={userData.password}
+          />
+        </div>
+        <div className="buttonsContainer">
+          <AppTextButton onClick={onCreateAccountClick}>
+            Create Account
+          </AppTextButton>
+          <AppContainedButton onClick={onSubmitClick}>
+            Submit
+          </AppContainedButton>
+        </div>
       </div>
     </div>
   );
