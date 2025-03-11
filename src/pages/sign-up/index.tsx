@@ -9,6 +9,7 @@ import AppMultiSelect from "../../components/AppMultiSelect";
 import AppListItemText from "../../components/AppListItem";
 import AppContainedButton from "../../components/AppContainedButton";
 import AppTextButton from "../../components/AppTextButton";
+import { useNavigate } from "react-router-dom";
 
 interface IUserData {
   name: string;
@@ -24,6 +25,7 @@ const regions = ["Shirak", "Lori", "Tavush"];
 const subjects = ["Math", "English", "History"];
 
 function SignUp() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState<IUserData>({
     name: "",
     lastName: "",
@@ -49,6 +51,10 @@ function SignUp() {
       ...userData,
       [key]: event.target.value,
     });
+  }
+
+  function onGoToLoginPageClick() {
+    navigate("/sign-in");
   }
 
   return (
@@ -130,7 +136,9 @@ function SignUp() {
         />
       </div>
       <div className="buttonsContainer">
-        <AppTextButton>Already have account? Go to login page</AppTextButton>
+        <AppTextButton onClick={onGoToLoginPageClick}>
+          Already have account? Go to login page
+        </AppTextButton>
         <AppContainedButton>Submit</AppContainedButton>
       </div>
     </div>
