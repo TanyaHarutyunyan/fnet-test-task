@@ -20,6 +20,7 @@ function AppMultiSelect({ children, label, ...props }: SelectProps) {
         },
       }}
       sx={{
+        color: "#194866CC",
         "& .MuiOutlinedInput-notchedOutline": {
           border: "0.5px solid #194866CC !important",
           borderRadius: "10px",
