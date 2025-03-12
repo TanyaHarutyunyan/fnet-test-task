@@ -11,10 +11,11 @@ import AppContainedButton from "../../components/AppContainedButton";
 import AppTextButton from "../../components/AppTextButton";
 import { useNavigate } from "react-router-dom";
 import FormValidation from "../../models/formValidation";
-import { addUser } from "../../redux/actions";
+import { addUser } from "../../redux/slices/userSlice/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
+import Header from "../../components/header";
 
 interface IUserData {
   name: string | null;
@@ -99,6 +100,7 @@ function SignUp() {
 
   return (
     <div className="root">
+      <Header />
       <div className="container">
         <AuthHeader title="Sign In" description="It’s quick and easy." />
         <div className="inputsContainer">

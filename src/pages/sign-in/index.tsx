@@ -8,6 +8,7 @@ import FormValidation from "../../models/formValidation";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
+import Header from "../../components/header";
 
 interface IUserData {
   email: string | null;
@@ -56,6 +57,7 @@ function SignIn() {
 
   return (
     <div className="root">
+      <Header />
       <div className="container">
         <AuthHeader title="Sign In" description="Welcome Back!" />
         <div className="inputsContainer">
