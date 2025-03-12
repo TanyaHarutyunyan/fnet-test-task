@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import FormValidation from "../../models/formValidation";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import AuthHeader from "../../components/auth-header";
 
 interface IUserData {
   email: string | null;
@@ -56,6 +57,7 @@ function SignIn() {
   return (
     <div className="root">
       <div className="container">
+        <AuthHeader title="Sign In" description="Welcome Back!" />
         <div className="inputsContainer">
           <AppTextFiled
             error={errors.email !== null}

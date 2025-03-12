@@ -14,6 +14,7 @@ import FormValidation from "../../models/formValidation";
 import { addUser } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import AuthHeader from "../../components/auth-header";
 
 interface IUserData {
   name: string | null;
@@ -99,6 +100,7 @@ function SignUp() {
   return (
     <div className="root">
       <div className="container">
+        <AuthHeader title="Sign In" description="It’s quick and easy." />
         <div className="inputsContainer">
           <AppTextFiled
             error={errors.name !== null}
