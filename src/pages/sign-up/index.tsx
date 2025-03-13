@@ -18,6 +18,7 @@ import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
 import resources from "../../translations";
 import { FormDataType, FormErrorType } from "../../types";
+import withHeader from "../../HOC/withHeader";
 
 const regions = ["Shirak", "Lori", "Tavush"];
 const subjects = ["Math", "English", "History"];
@@ -100,7 +101,6 @@ function SignUp() {
 
   return (
     <div className="root">
-      <Header />
       <div className="container">
         <AuthHeader
           title={getLocalizationText("sign_up")}
@@ -206,4 +206,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default withHeader(SignUp);

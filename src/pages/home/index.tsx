@@ -6,6 +6,7 @@ import resources from "../../translations";
 import "./styles.css";
 import AppTypography from "../../components/AppTypography";
 import { useNavigate } from "react-router-dom";
+import withHeader from "../../HOC/withHeader";
 
 function Home() {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ function Home() {
 
   return (
     <div className="homeContainer">
-      <Header />
       <AppTypography
         sx={{
           color: "#34C88A",
@@ -55,4 +55,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default withHeader(Home);

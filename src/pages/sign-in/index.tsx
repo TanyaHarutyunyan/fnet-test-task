@@ -11,6 +11,7 @@ import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
 import resources from "../../translations";
 import { FormDataType, FormErrorType } from "../../types";
+import withHeader from "../../HOC/withHeader";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -61,7 +62,6 @@ function SignIn() {
 
   return (
     <div className="root">
-      <Header />
       <div className="container">
         <AuthHeader
           title={getLocalizationText("sign_in")}
@@ -98,4 +98,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default withHeader(SignIn);
