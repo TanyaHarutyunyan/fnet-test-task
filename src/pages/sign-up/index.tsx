@@ -1,6 +1,6 @@
 import { useState } from "react";
-import AppTextFiled from "../../components/AppTextField";
-import "./styles.css";
+import AppTextField from "../../components/AppTextField";
+import styles from "./styles.module.css";
 import AppSelect from "../../components/AppSelect";
 import AppMenuItem from "../../components/AppMenuItem";
 import { Checkbox, FormControl } from "@mui/material";
@@ -14,7 +14,7 @@ import FormValidation from "../../models/formValidation";
 import { addUser } from "../../redux/slices/userSlice/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import AuthHeader from "../../components/auth-header";
+import AuthFormHeader from "../../components/auth-fom-header";
 import Header from "../../components/header";
 import resources from "../../translations";
 import { FormDataType, FormErrorType } from "../../types";
@@ -100,14 +100,14 @@ function SignUp() {
   }
 
   return (
-    <div className="root">
-      <div className="container">
-        <AuthHeader
+    <div className={styles.root}>
+      <div className={styles.container}>
+        <AuthFormHeader
           title={getLocalizationText("sign_up")}
           description={getLocalizationText("sign_up_description")}
         />
-        <div className="inputsContainer">
-          <AppTextFiled
+        <div className={styles.inputs}>
+          <AppTextField
             error={formErrors.name !== null}
             fullWidth
             label={getLocalizationText(formErrors.name || "name")}
@@ -115,7 +115,7 @@ function SignUp() {
             onChange={(event) => onUserDataUpdate("name", event)}
             value={formData.name}
           />
-          <AppTextFiled
+          <AppTextField
             error={formErrors.email !== null}
             fullWidth
             label={getLocalizationText(formErrors.email || "email")}
@@ -174,7 +174,7 @@ function SignUp() {
               })}
             </AppMultiSelect>
           </FormControl>
-          <AppTextFiled
+          <AppTextField
             error={formErrors.password !== null}
             fullWidth
             label={getLocalizationText(formErrors.password || "password")}
@@ -182,7 +182,7 @@ function SignUp() {
             onChange={(event) => onUserDataUpdate("password", event)}
             value={formData.password}
           />
-          <AppTextFiled
+          <AppTextField
             error={formErrors.confirmPassword !== null}
             fullWidth
             label={getLocalizationText(
@@ -193,7 +193,7 @@ function SignUp() {
             value={formData.confirmPassword}
           />
         </div>
-        <div className="buttonsContainer">
+        <div className={styles.buttons}>
           <AppTextButton onClick={onGoToLoginPageClick}>
             {getLocalizationText("account_exists")}
           </AppTextButton>

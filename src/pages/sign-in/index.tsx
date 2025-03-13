@@ -1,13 +1,13 @@
 import { useState } from "react";
 import AppContainedButton from "../../components/AppContainedButton";
 import AppTextButton from "../../components/AppTextButton";
-import AppTextFiled from "../../components/AppTextField";
-import "./styles.css";
+import AppTextField from "../../components/AppTextField";
+import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import FormValidation from "../../models/formValidation";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import AuthHeader from "../../components/auth-header";
+import AuthFormHeader from "../../components/auth-fom-header";
 import Header from "../../components/header";
 import resources from "../../translations";
 import { FormDataType, FormErrorType } from "../../types";
@@ -61,14 +61,14 @@ function SignIn() {
   }
 
   return (
-    <div className="root">
-      <div className="container">
-        <AuthHeader
+    <div className={styles.root}>
+      <div className={styles.container}>
+        <AuthFormHeader
           title={getLocalizationText("sign_in")}
           description={getLocalizationText("sign_in_description")}
         />
-        <div className="inputsContainer">
-          <AppTextFiled
+        <div className={styles.inputs}>
+          <AppTextField
             error={formErrors.email !== null}
             fullWidth
             label={getLocalizationText(formErrors.email || "email")}
@@ -76,7 +76,7 @@ function SignIn() {
             onChange={(event) => onUserDataUpdate("email", event)}
             value={formData.email}
           />
-          <AppTextFiled
+          <AppTextField
             error={formErrors.password !== null}
             fullWidth
             label={getLocalizationText(formErrors.password || "password")}
@@ -85,7 +85,7 @@ function SignIn() {
             value={formData.password}
           />
         </div>
-        <div className="buttonsContainer">
+        <div className={styles.buttons}>
           <AppTextButton onClick={onCreateAccountClick}>
             {getLocalizationText("create_account")}
           </AppTextButton>

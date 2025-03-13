@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import AppTextButton from "../AppTextButton";
-import "./styles.css";
+import styles from "./styles.module.css";
 import { setLanguage } from "../../redux/slices/settingsSlice/actions";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +23,11 @@ function Header() {
   }
 
   return (
-    <div className="header">
+    <div className={styles.container}>
       <AppTextButton onClick={onLogoClick}>
         <img src={"/logo.svg"} alt="Logo" width={99} height={64} />
       </AppTextButton>
-      <div className="languages">
+      <div className={styles.languages}>
         {languages.map((language) => {
           return (
             <AppTextButton

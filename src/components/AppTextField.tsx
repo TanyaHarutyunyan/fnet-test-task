@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@mui/material";
 
-function AppTextFiled(props: TextFieldProps) {
+function AppTextField(props: TextFieldProps) {
   return (
     <TextField
       variant="outlined"
@@ -43,4 +43,4 @@ function AppTextFiled(props: TextFieldProps) {
   );
 }
 
-export default AppTextFiled;
+export default AppTextField;

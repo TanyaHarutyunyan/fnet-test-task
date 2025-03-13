@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
 import AppTextButton from "../../components/AppTextButton";
-import Header from "../../components/header";
 import { RootState } from "../../redux/store";
 import resources from "../../translations";
-import "./styles.css";
+import styles from "./styles.module.css";
 import AppTypography from "../../components/AppTypography";
 import { useNavigate } from "react-router-dom";
 import withHeader from "../../HOC/withHeader";
@@ -23,7 +22,7 @@ function Home() {
   }
 
   return (
-    <div className="homeContainer">
+    <div className={styles.container}>
       <AppTypography
         sx={{
           color: "#34C88A",
@@ -33,7 +32,7 @@ function Home() {
       >
         {getLocalizationText("welcome_app")}
       </AppTypography>
-      <div className="content">
+      <div className={styles.buttons}>
         <AppTextButton
           onClick={() => onAuthButtonClick("sign-in")}
           sx={{

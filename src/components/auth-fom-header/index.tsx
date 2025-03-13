@@ -1,14 +1,14 @@
 import AppTypography from "../AppTypography";
-import "./styles.css";
+import styles from "./styles.module.css";
 
-interface IAuthHeaderProps {
+interface IAuthFormHeaderProps {
   title: string;
   description: string;
 }
 
-function AuthHeader({ title, description }: IAuthHeaderProps) {
+function AuthFormHeader({ title, description }: IAuthFormHeaderProps) {
   return (
-    <div className="authHeader">
+    <div className={styles.container}>
       <AppTypography
         sx={{
           fontWeight: 700,
@@ -37,4 +37,4 @@ function AuthHeader({ title, description }: IAuthHeaderProps) {
   );
 }
 
-export default AuthHeader;
+export default AuthFormHeader;
