@@ -4,16 +4,17 @@ import "./styles.css";
 import { setLanguage } from "../../redux/slices/settingsSlice/actions";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
+import { LanguageType } from "../../types";
 
 function Header() {
   const navigate = useNavigate();
-  const languages = ["en", "ru"];
+  const languages: LanguageType[] = ["en", "ru"];
   const dispatch = useDispatch();
   const selectedLanguage = useSelector(
     (state: RootState) => state.settings.language,
   );
 
-  function onLanguageClick(language: string) {
+  function onLanguageClick(language: LanguageType) {
     dispatch(setLanguage(language));
   }
 

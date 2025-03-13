@@ -1,7 +1,7 @@
 class FormValidation {
   private data;
   private users;
-  private scene;
+  private scene: string;
 
   constructor(data: any, users: any, scene: string) {
     this.data = data;
