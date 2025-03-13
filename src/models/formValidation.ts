@@ -9,7 +9,7 @@ class FormValidation {
     this.scene = scene;
   }
 
-  nameValidation() {
+  nameValidationError() {
     if (this.data.name === null) {
       return "name_required";
     }
@@ -18,10 +18,10 @@ class FormValidation {
   }
 
   isNameValid() {
-    return this.nameValidation() === null;
+    return this.nameValidationError() === null;
   }
 
-  emailValidation() {
+  emailValidationError() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (this.data.email === null) {
@@ -56,10 +56,10 @@ class FormValidation {
   }
 
   isEmailValid() {
-    return this.emailValidation() === null;
+    return this.emailValidationError() === null;
   }
 
-  passwordValidation() {
+  passwordValidationError() {
     if (this.scene === "sign-in") {
       const loginUser = this.users.find(
         (user: any) => user.email === this.data.email,
@@ -84,10 +84,10 @@ class FormValidation {
   }
 
   isPasswordValid() {
-    return this.passwordValidation() === null;
+    return this.passwordValidationError() === null;
   }
 
-  confirmPasswordValidation() {
+  confirmPasswordValidationError() {
     if (this.data.confirmPassword === null) {
       return "confirm_password_required";
     }
@@ -100,10 +100,10 @@ class FormValidation {
   }
 
   isConfirmPasswordValid() {
-    return this.confirmPasswordValidation() === null;
+    return this.confirmPasswordValidationError() === null;
   }
 
-  regionValidation() {
+  regionValidationError() {
     if (this.data.region === null) {
       return "region_required";
     }
@@ -112,10 +112,10 @@ class FormValidation {
   }
 
   isRegionValid() {
-    return this.regionValidation() === null;
+    return this.regionValidationError() === null;
   }
 
-  subjectValidation() {
+  subjectValidationError() {
     if (this.data.subject.length === 0) {
       return "subject_required";
     }
@@ -124,7 +124,7 @@ class FormValidation {
   }
 
   isSubjectValid() {
-    return this.subjectValidation() === null;
+    return this.subjectValidationError() === null;
   }
 
   isFormValid() {

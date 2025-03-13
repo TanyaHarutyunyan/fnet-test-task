@@ -35,7 +35,7 @@ function SignIn() {
   function onUserDataUpdate(key: string, event: any) {
     setUserData({
       ...userData,
-      [key]: event.target.value,
+      [key]: event.target.value || null,
     });
   }
 
@@ -45,8 +45,8 @@ function SignIn() {
     } else {
       setErrors({
         ...errors,
-        email: formValidation.emailValidation(),
-        password: formValidation.passwordValidation(),
+        email: formValidation.emailValidationError(),
+        password: formValidation.passwordValidationError(),
       });
     }
   }

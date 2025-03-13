@@ -68,7 +68,7 @@ function SignUp() {
 
     setUserData({
       ...userData,
-      [key]: event.target.value,
+      [key]: event.target.value || null,
     });
   }
 
@@ -84,12 +84,12 @@ function SignUp() {
     } else {
       setErrors({
         ...errors,
-        name: formValidation.nameValidation(),
-        email: formValidation.emailValidation(),
-        password: formValidation.passwordValidation(),
-        confirmPassword: formValidation.confirmPasswordValidation(),
-        region: formValidation.regionValidation(),
-        subject: formValidation.subjectValidation(),
+        name: formValidation.nameValidationError(),
+        email: formValidation.emailValidationError(),
+        password: formValidation.passwordValidationError(),
+        confirmPassword: formValidation.confirmPasswordValidationError(),
+        region: formValidation.regionValidationError(),
+        subject: formValidation.subjectValidationError(),
       });
     }
   }
