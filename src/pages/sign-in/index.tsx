@@ -18,7 +18,7 @@ interface IUserData {
 
 function SignIn() {
   const navigate = useNavigate();
-  const users = useSelector((state: RootState) => state.users);
+  const users = useSelector((state: RootState) => state.users.users);
   const [userData, setUserData] = useState<IUserData>({
     email: null,
     password: null,
