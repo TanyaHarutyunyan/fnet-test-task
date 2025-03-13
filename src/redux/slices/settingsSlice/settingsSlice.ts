@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { LanguageType } from "../../../types";
 
-export interface SettingsState {
+interface SettingsState {
   language: LanguageType;
 }
 

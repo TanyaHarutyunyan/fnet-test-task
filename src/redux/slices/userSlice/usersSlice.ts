@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { FormDataType } from "../../../types";
 
-export interface UserState {
-  email: string | null;
-  password: string | null;
-}
-
-export interface UsersState {
-  users: UserState[];
+interface UsersState {
+  users: FormDataType[];
 }
 
 const initialState: UsersState = {
@@ -18,7 +14,7 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    addUser: (state, action: PayloadAction<UserState>) => {
+    addUser: (state, action: PayloadAction<FormDataType>) => {
       state.users.push(action.payload);
     },
   },

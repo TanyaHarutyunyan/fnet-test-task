@@ -1,16 +1,18 @@
+import { FormDataType } from "../types";
+
 class FormValidation {
-  private data;
-  private users;
+  private formData: FormDataType;
+  private users: FormDataType[];
   private scene: string;
 
-  constructor(data: any, users: any, scene: string) {
-    this.data = data;
+  constructor(formData: FormDataType, users: FormDataType[], scene: string) {
+    this.formData = formData;
     this.users = users;
     this.scene = scene;
   }
 
   nameValidationError() {
-    if (this.data.name === null) {
+    if (this.formData.name === null) {
       return "name_required";
     }
 
@@ -24,17 +26,19 @@ class FormValidation {
   emailValidationError() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (this.data.email === null) {
+    if (this.formData.email === null) {
       return "email_required";
     }
 
-    if (!emailRegex.test(this.data.email)) {
-      return "email_invalid_format";
+    if (typeof this.formData.email === "string") {
+      if (!emailRegex.test(this.formData.email)) {
+        return "email_invalid_format";
+      }
     }
 
     if (this.scene === "sign-up") {
       const isEmailAlreadyInUse = this.users.some(
-        (user: any) => user.email === this.data.email,
+        (user: FormDataType) => user.email === this.formData.email,
       );
 
       if (isEmailAlreadyInUse) {
@@ -44,7 +48,7 @@ class FormValidation {
 
     if (this.scene === "sign-in") {
       const loginUser = this.users.some(
-        (user: any) => user.email === this.data.email,
+        (user: FormDataType) => user.email === this.formData.email,
       );
 
       if (!loginUser) {
@@ -62,21 +66,21 @@ class FormValidation {
   passwordValidationError() {
     if (this.scene === "sign-in") {
       const loginUser = this.users.find(
-        (user: any) => user.email === this.data.email,
+        (user: FormDataType) => user.email === this.formData.email,
       );
 
       if (loginUser) {
-        if (loginUser.password !== this.data.password) {
+        if (loginUser.password !== this.formData.password) {
           return "password_incorrect";
         }
       }
     }
 
-    if (this.data.password === null) {
+    if (this.formData.password === null) {
       return "password_required";
     }
 
-    if (this.data.password.length < 6) {
+    if (this.formData.password.length < 6) {
       return "password_characters";
     }
 
@@ -88,11 +92,11 @@ class FormValidation {
   }
 
   confirmPasswordValidationError() {
-    if (this.data.confirmPassword === null) {
+    if (this.formData.confirmPassword === null) {
       return "confirm_password_required";
     }
 
-    if (this.data.password !== this.data.confirmPassword) {
+    if (this.formData.password !== this.formData.confirmPassword) {
       return "passwords_no_match";
     }
 
@@ -104,7 +108,7 @@ class FormValidation {
   }
 
   regionValidationError() {
-    if (this.data.region === null) {
+    if (this.formData.region === null) {
       return "region_required";
     }
 
@@ -116,8 +120,10 @@ class FormValidation {
   }
 
   subjectValidationError() {
-    if (this.data.subject.length === 0) {
-      return "subject_required";
+    if (Array.isArray(this.formData.subject)) {
+      if (this.formData.subject.length === 0) {
+        return "subject_required";
+      }
     }
 
     return null;

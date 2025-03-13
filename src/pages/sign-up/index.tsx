@@ -17,15 +17,7 @@ import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
 import resources from "../../translations";
-
-interface IUserData {
-  name: string | null;
-  email: string | null;
-  password: string | null;
-  confirmPassword: string | null;
-  region: string | null;
-  subject: string[];
-}
+import { FormDataType, FormErrorType } from "../../types";
 
 const regions = ["Shirak", "Lori", "Tavush"];
 const subjects = ["Math", "English", "History"];
@@ -33,7 +25,7 @@ const subjects = ["Math", "English", "History"];
 function SignUp() {
   const navigate = useNavigate();
   const users = useSelector((state: RootState) => state.users.users);
-  const [userData, setUserData] = useState<IUserData>({
+  const [formData, setFormData] = useState<FormDataType>({
     name: null,
     email: null,
     password: null,
@@ -41,7 +33,7 @@ function SignUp() {
     region: null,
     subject: [],
   });
-  const [errors, setErrors] = useState<{ [key: string]: string | null }>({
+  const [formErrors, setFormErrors] = useState<FormErrorType>({
     name: null,
     email: null,
     password: null,
@@ -53,12 +45,12 @@ function SignUp() {
   const selectedLanguage = useSelector(
     (state: RootState) => state.settings.language,
   );
-  const formValidation = new FormValidation(userData, users, "sign-up");
+  const formValidation = new FormValidation(formData, users, "sign-up");
 
   function onUserDataUpdate(key: string, event: any) {
     if (key === "subject") {
-      setUserData({
-        ...userData,
+      setFormData({
+        ...formData,
         [key]:
           typeof event.target.value === "string"
             ? event.target.value.split(",")
@@ -66,8 +58,8 @@ function SignUp() {
       });
     }
 
-    setUserData({
-      ...userData,
+    setFormData({
+      ...formData,
       [key]: event.target.value || null,
     });
   }
@@ -76,14 +68,14 @@ function SignUp() {
     if (formValidation.isFormValid()) {
       dispatch(
         addUser({
-          email: userData.email,
-          password: userData.password,
+          email: formData.email as string,
+          password: formData.password as string,
         }),
       );
       navigate("/");
     } else {
-      setErrors({
-        ...errors,
+      setFormErrors({
+        ...formErrors,
         name: formValidation.nameValidationError(),
         email: formValidation.emailValidationError(),
         password: formValidation.passwordValidationError(),
@@ -102,7 +94,7 @@ function SignUp() {
     navigate("/sign-in");
   }
 
-  function getLocalizationText(key: any) {
+  function getLocalizationText(key: string) {
     return resources[selectedLanguage][key];
   }
 
@@ -116,30 +108,30 @@ function SignUp() {
         />
         <div className="inputsContainer">
           <AppTextFiled
-            error={errors.name !== null}
+            error={formErrors.name !== null}
             fullWidth
-            label={getLocalizationText(errors.name || "name")}
+            label={getLocalizationText(formErrors.name || "name")}
             type="text"
             onChange={(event) => onUserDataUpdate("name", event)}
-            value={userData.name}
+            value={formData.name}
           />
           <AppTextFiled
-            error={errors.email !== null}
+            error={formErrors.email !== null}
             fullWidth
-            label={getLocalizationText(errors.email || "email")}
+            label={getLocalizationText(formErrors.email || "email")}
             type="email"
             onChange={(event) => onUserDataUpdate("email", event)}
-            value={userData.email}
+            value={formData.email}
           />
           <FormControl fullWidth>
-            <AppInputLabel id="select-label" error={errors.region !== null}>
-              {getLocalizationText(errors.region || "region")}
+            <AppInputLabel id="select-label" error={formErrors.region !== null}>
+              {getLocalizationText(formErrors.region || "region")}
             </AppInputLabel>
             <AppSelect
-              error={errors.region !== null}
+              error={formErrors.region !== null}
               fullWidth
-              label={getLocalizationText(errors.region || "region")}
-              value={userData.region}
+              label={getLocalizationText(formErrors.region || "region")}
+              value={formData.region}
               onChange={(event) => onUserDataUpdate("region", event)}
             >
               {regions.map((region) => {
@@ -148,14 +140,17 @@ function SignUp() {
             </AppSelect>
           </FormControl>
           <FormControl fullWidth>
-            <AppInputLabel id="checkbox-label" error={errors.subject !== null}>
-              {getLocalizationText(errors.subject || "subject")}
+            <AppInputLabel
+              id="checkbox-label"
+              error={formErrors.subject !== null}
+            >
+              {getLocalizationText(formErrors.subject || "subject")}
             </AppInputLabel>
             <AppMultiSelect
-              error={errors.subject !== null}
+              error={formErrors.subject !== null}
               fullWidth
-              label={getLocalizationText(errors.subject || "subject")}
-              value={userData.subject}
+              label={getLocalizationText(formErrors.subject || "subject")}
+              value={formData.subject}
               onChange={(event) => onUserDataUpdate("subject", event)}
             >
               {subjects.map((subject) => {
@@ -163,7 +158,10 @@ function SignUp() {
                   <AppMenuItem key={subject} value={subject}>
                     <AppListItemText primary={subject} />
                     <Checkbox
-                      checked={userData.subject.includes(subject)}
+                      checked={
+                        Array.isArray(formData.subject) &&
+                        formData.subject.includes(subject)
+                      }
                       sx={{
                         color: "gray",
                         "&.Mui-checked": {
@@ -177,22 +175,22 @@ function SignUp() {
             </AppMultiSelect>
           </FormControl>
           <AppTextFiled
-            error={errors.password !== null}
+            error={formErrors.password !== null}
             fullWidth
-            label={getLocalizationText(errors.password || "password")}
+            label={getLocalizationText(formErrors.password || "password")}
             type="password"
             onChange={(event) => onUserDataUpdate("password", event)}
-            value={userData.password}
+            value={formData.password}
           />
           <AppTextFiled
-            error={errors.confirmPassword !== null}
+            error={formErrors.confirmPassword !== null}
             fullWidth
             label={getLocalizationText(
-              errors.confirmPassword || "confirm_password",
+              formErrors.confirmPassword || "confirm_password",
             )}
             type="password"
             onChange={(event) => onUserDataUpdate("confirmPassword", event)}
-            value={userData.confirmPassword}
+            value={formData.confirmPassword}
           />
         </div>
         <div className="buttonsContainer">
