@@ -10,31 +10,27 @@ import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
 import resources from "../../translations";
-
-interface IUserData {
-  email: string | null;
-  password: string | null;
-}
+import { FormDataType, FormErrorType } from "../../types";
 
 function SignIn() {
   const navigate = useNavigate();
   const users = useSelector((state: RootState) => state.users.users);
-  const [userData, setUserData] = useState<IUserData>({
+  const [formData, setFormData] = useState<FormDataType>({
     email: null,
     password: null,
   });
-  const [errors, setErrors] = useState<{ [key: string]: string | null }>({
+  const [formErrors, setFormErrors] = useState<FormErrorType>({
     email: null,
     password: null,
   });
   const selectedLanguage = useSelector(
     (state: RootState) => state.settings.language,
   );
-  const formValidation = new FormValidation(userData, users, "sign-in");
+  const formValidation = new FormValidation(formData, users, "sign-in");
 
   function onUserDataUpdate(key: string, event: any) {
-    setUserData({
-      ...userData,
+    setFormData({
+      ...formData,
       [key]: event.target.value || null,
     });
   }
@@ -43,8 +39,8 @@ function SignIn() {
     if (formValidation.isFormValid()) {
       navigate("/");
     } else {
-      setErrors({
-        ...errors,
+      setFormErrors({
+        ...formErrors,
         email: formValidation.emailValidationError(),
         password: formValidation.passwordValidationError(),
       });
@@ -59,7 +55,7 @@ function SignIn() {
     navigate("/sign-up");
   }
 
-  function getLocalizationText(key: any) {
+  function getLocalizationText(key: string) {
     return resources[selectedLanguage][key];
   }
 
@@ -73,20 +69,20 @@ function SignIn() {
         />
         <div className="inputsContainer">
           <AppTextFiled
-            error={errors.email !== null}
+            error={formErrors.email !== null}
             fullWidth
-            label={getLocalizationText(errors.email || "email")}
+            label={getLocalizationText(formErrors.email || "email")}
             type="email"
             onChange={(event) => onUserDataUpdate("email", event)}
-            value={userData.email}
+            value={formData.email}
           />
           <AppTextFiled
-            error={errors.password !== null}
+            error={formErrors.password !== null}
             fullWidth
-            label={getLocalizationText(errors.password || "password")}
+            label={getLocalizationText(formErrors.password || "password")}
             type="password"
             onChange={(event) => onUserDataUpdate("password", event)}
-            value={userData.password}
+            value={formData.password}
           />
         </div>
         <div className="buttonsContainer">

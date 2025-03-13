@@ -13,7 +13,7 @@ function Home() {
     (state: RootState) => state.settings.language,
   );
 
-  function getLocalizationText(key: any) {
+  function getLocalizationText(key: string) {
     return resources[selectedLanguage][key];
   }
 
