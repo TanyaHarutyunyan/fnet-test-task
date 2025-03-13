@@ -8,13 +8,16 @@ import { LanguageType } from "../../types";
 
 function Header() {
   const navigate = useNavigate();
-  const languages: LanguageType[] = ["en", "ru"];
+  const languages: LanguageType[] = [
+    { key: "en", name: "en" },
+    { key: "ru", name: "Рус" },
+  ];
   const dispatch = useDispatch();
   const selectedLanguage = useSelector(
     (state: RootState) => state.settings.language,
   );
 
-  function onLanguageClick(language: LanguageType) {
+  function onLanguageClick(language: string) {
     dispatch(setLanguage(language));
   }
 
@@ -31,7 +34,7 @@ function Header() {
         {languages.map((language) => {
           return (
             <AppTextButton
-              onClick={() => onLanguageClick(language)}
+              onClick={() => onLanguageClick(language.key)}
               sx={{
                 fontWeight: 700,
                 fontSize: "12px",
@@ -41,10 +44,10 @@ function Header() {
                 minWidth: "unset",
                 color: "#FFFFFF",
                 textDecoration: "unset",
-                opacity: selectedLanguage === language ? "1" : "0.5",
+                opacity: selectedLanguage === language.key ? "1" : "0.5",
               }}
             >
-              {language}
+              {language.name}
             </AppTextButton>
           );
         })}
