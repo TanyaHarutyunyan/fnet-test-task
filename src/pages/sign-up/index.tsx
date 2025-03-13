@@ -72,7 +72,7 @@ function SignUp() {
           password: formData.password as string,
         }),
       );
-      navigate("/");
+      navigate("/sign-in");
     } else {
       setFormErrors({
         ...formErrors,
