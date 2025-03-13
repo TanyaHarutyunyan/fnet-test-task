@@ -2,6 +2,7 @@ class FormValidation {
   private data;
   private users;
   private scene;
+
   constructor(data: any, users: any, scene: string) {
     this.data = data;
     this.users = users;
@@ -10,7 +11,7 @@ class FormValidation {
 
   nameValidation() {
     if (this.data.name === null) {
-      return "Name is required";
+      return "name_required";
     }
 
     return null;
@@ -24,11 +25,11 @@ class FormValidation {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (this.data.email === null) {
-      return "Email is required";
+      return "email_required";
     }
 
     if (!emailRegex.test(this.data.email)) {
-      return "Invalid email format";
+      return "email_invalid_format";
     }
 
     if (this.scene === "sign-up") {
@@ -37,7 +38,7 @@ class FormValidation {
       );
 
       if (isEmailAlreadyInUse) {
-        return "Email is already in use";
+        return "email_in_use";
       }
     }
 
@@ -47,7 +48,7 @@ class FormValidation {
       );
 
       if (!loginUser) {
-        return "Email not found";
+        return "email_not_found";
       }
     }
 
@@ -66,17 +67,17 @@ class FormValidation {
 
       if (loginUser) {
         if (loginUser.password !== this.data.password) {
-          return "Incorrect password";
+          return "password_incorrect";
         }
       }
     }
 
     if (this.data.password === null) {
-      return "Password is required";
+      return "password_required";
     }
 
     if (this.data.password.length < 6) {
-      return "Password must be at least 6 characters";
+      return "password_characters";
     }
 
     return null;
@@ -88,11 +89,11 @@ class FormValidation {
 
   confirmPasswordValidation() {
     if (this.data.confirmPassword === null) {
-      return "Confirm password is required";
+      return "confirm_password_required";
     }
 
     if (this.data.password !== this.data.confirmPassword) {
-      return "Passwords do not match";
+      return "passwords_no_match";
     }
 
     return null;
@@ -104,7 +105,7 @@ class FormValidation {
 
   regionValidation() {
     if (this.data.region === null) {
-      return "Region is required";
+      return "region_required";
     }
 
     return null;
@@ -116,7 +117,7 @@ class FormValidation {
 
   subjectValidation() {
     if (this.data.subject.length === 0) {
-      return "Subject is required";
+      return "subject_required";
     }
 
     return null;

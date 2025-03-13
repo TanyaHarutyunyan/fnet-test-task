@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
+import resources from "../../translations";
 
 interface IUserData {
   email: string | null;
@@ -26,6 +27,9 @@ function SignIn() {
     email: null,
     password: null,
   });
+  const selectedLanguage = useSelector(
+    (state: RootState) => state.settings.language,
+  );
   const formValidation = new FormValidation(userData, users, "sign-in");
 
   function onUserDataUpdate(key: string, event: any) {
@@ -55,16 +59,23 @@ function SignIn() {
     navigate("/sign-up");
   }
 
+  function getLocalizationText(key: any) {
+    return resources[selectedLanguage][key];
+  }
+
   return (
     <div className="root">
       <Header />
       <div className="container">
-        <AuthHeader title="Sign In" description="Welcome Back!" />
+        <AuthHeader
+          title={getLocalizationText("sign_in")}
+          description={getLocalizationText("sign_in_description")}
+        />
         <div className="inputsContainer">
           <AppTextFiled
             error={errors.email !== null}
             fullWidth
-            label={errors.email || "Email"}
+            label={getLocalizationText(errors.email || "email")}
             type="email"
             onChange={(event) => onUserDataUpdate("email", event)}
             value={userData.email}
@@ -72,7 +83,7 @@ function SignIn() {
           <AppTextFiled
             error={errors.password !== null}
             fullWidth
-            label={errors.password || "Password"}
+            label={getLocalizationText(errors.password || "password")}
             type="password"
             onChange={(event) => onUserDataUpdate("password", event)}
             value={userData.password}
@@ -80,10 +91,10 @@ function SignIn() {
         </div>
         <div className="buttonsContainer">
           <AppTextButton onClick={onCreateAccountClick}>
-            Create Account
+            {getLocalizationText("create_account")}
           </AppTextButton>
           <AppContainedButton onClick={onSubmitClick}>
-            Submit
+            {getLocalizationText("submit")}
           </AppContainedButton>
         </div>
       </div>

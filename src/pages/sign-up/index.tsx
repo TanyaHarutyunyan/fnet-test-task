@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AuthHeader from "../../components/auth-header";
 import Header from "../../components/header";
+import resources from "../../translations";
 
 interface IUserData {
   name: string | null;
@@ -48,8 +49,11 @@ function SignUp() {
     region: null,
     subject: null,
   });
-  const formValidation = new FormValidation(userData, users, "sign-up");
   const dispatch = useDispatch();
+  const selectedLanguage = useSelector(
+    (state: RootState) => state.settings.language,
+  );
+  const formValidation = new FormValidation(userData, users, "sign-up");
 
   function onUserDataUpdate(key: string, event: any) {
     if (key === "subject") {
@@ -98,16 +102,23 @@ function SignUp() {
     navigate("/sign-in");
   }
 
+  function getLocalizationText(key: any) {
+    return resources[selectedLanguage][key];
+  }
+
   return (
     <div className="root">
       <Header />
       <div className="container">
-        <AuthHeader title="Sign In" description="It’s quick and easy." />
+        <AuthHeader
+          title={getLocalizationText("sign_up")}
+          description={getLocalizationText("sign_up_description")}
+        />
         <div className="inputsContainer">
           <AppTextFiled
             error={errors.name !== null}
             fullWidth
-            label={errors.name || "Name"}
+            label={getLocalizationText(errors.name || "name")}
             type="text"
             onChange={(event) => onUserDataUpdate("name", event)}
             value={userData.name}
@@ -115,19 +126,19 @@ function SignUp() {
           <AppTextFiled
             error={errors.email !== null}
             fullWidth
-            label={errors.email || "Email"}
+            label={getLocalizationText(errors.email || "email")}
             type="email"
             onChange={(event) => onUserDataUpdate("email", event)}
             value={userData.email}
           />
           <FormControl fullWidth>
             <AppInputLabel id="select-label" error={errors.region !== null}>
-              {errors.region || "Region"}
+              {getLocalizationText(errors.region || "region")}
             </AppInputLabel>
             <AppSelect
               error={errors.region !== null}
               fullWidth
-              label={errors.region || "Region"}
+              label={getLocalizationText(errors.region || "region")}
               value={userData.region}
               onChange={(event) => onUserDataUpdate("region", event)}
             >
@@ -138,12 +149,12 @@ function SignUp() {
           </FormControl>
           <FormControl fullWidth>
             <AppInputLabel id="checkbox-label" error={errors.subject !== null}>
-              {errors.subject || "Subject"}
+              {getLocalizationText(errors.subject || "subject")}
             </AppInputLabel>
             <AppMultiSelect
               error={errors.subject !== null}
               fullWidth
-              label={errors.subject || "Subject"}
+              label={getLocalizationText(errors.subject || "subject")}
               value={userData.subject}
               onChange={(event) => onUserDataUpdate("subject", event)}
             >
@@ -168,7 +179,7 @@ function SignUp() {
           <AppTextFiled
             error={errors.password !== null}
             fullWidth
-            label={errors.password || "Password"}
+            label={getLocalizationText(errors.password || "password")}
             type="password"
             onChange={(event) => onUserDataUpdate("password", event)}
             value={userData.password}
@@ -176,7 +187,9 @@ function SignUp() {
           <AppTextFiled
             error={errors.confirmPassword !== null}
             fullWidth
-            label={errors.confirmPassword || "Confirm Password"}
+            label={getLocalizationText(
+              errors.confirmPassword || "confirm_password",
+            )}
             type="password"
             onChange={(event) => onUserDataUpdate("confirmPassword", event)}
             value={userData.confirmPassword}
@@ -184,10 +197,10 @@ function SignUp() {
         </div>
         <div className="buttonsContainer">
           <AppTextButton onClick={onGoToLoginPageClick}>
-            Already have account? Go to login page
+            {getLocalizationText("account_exists")}
           </AppTextButton>
           <AppContainedButton onClick={onSubmitClick}>
-            Submit
+            {getLocalizationText("submit")}
           </AppContainedButton>
         </div>
       </div>
