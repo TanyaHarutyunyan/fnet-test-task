@@ -24,6 +24,7 @@ const ru = {
   subject: "Тема",
   password: "Пароль",
   confirm_password: "Подтвердите пароль",
+  welcome_app: "Добро пожаловать в Next Generation Armenia",
 };
 
 export default ru;

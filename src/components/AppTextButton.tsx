@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "@mui/material";
 
-function AppTextButton(props: ButtonProps) {
+function AppTextButton({ sx, ...props }: ButtonProps) {
   return (
     <Button
       variant="text"
@@ -13,6 +13,8 @@ function AppTextButton(props: ButtonProps) {
         "&:hover": {
           backgroundColor: "transparent",
         },
+
+        ...sx,
       }}
       {...props}
     />

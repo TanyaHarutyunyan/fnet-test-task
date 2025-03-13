@@ -24,6 +24,7 @@ const en = {
   subject: "Subject",
   password: "Password",
   confirm_password: "Confirm Password",
+  welcome_app: "Welcome to Next Generation Armenia App",
 };
 
 export default en;

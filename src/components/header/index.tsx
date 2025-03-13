@@ -3,8 +3,10 @@ import AppTextButton from "../AppTextButton";
 import "./styles.css";
 import { setLanguage } from "../../redux/slices/settingsSlice/actions";
 import { RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
   const languages = ["en", "ru"];
   const dispatch = useDispatch();
   const selectedLanguage = useSelector(
@@ -15,9 +17,15 @@ function Header() {
     dispatch(setLanguage(language));
   }
 
+  function onLogoClick() {
+    navigate("/");
+  }
+
   return (
     <div className="header">
-      <img src={"/logo.svg"} alt="Logo" width={99} height={64} />
+      <AppTextButton onClick={onLogoClick}>
+        <img src={"/logo.svg"} alt="Logo" width={99} height={64} />
+      </AppTextButton>
       <div className="languages">
         {languages.map((language) => {
           return (
@@ -31,6 +39,7 @@ function Header() {
                 textTransform: "capitalize",
                 minWidth: "unset",
                 color: "#FFFFFF",
+                textDecoration: "unset",
                 opacity: selectedLanguage === language ? "1" : "0.5",
               }}
             >
